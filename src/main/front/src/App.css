@@ -1,0 +1,59 @@
+.App {
+  text-align: center;
+}
+
+header {
+  background: #ffefa5;
+  color: #000000;
+  padding: 1rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  display: none; /* main 요소 숨기기 */
+}
+
+section {
+  width: 20%;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: #ffefa5;
+}
+
+footer nav {
+  display: flex;
+  justify-content: center; /* 가운데 정렬로 변경 */
+  background: #ffefa5;
+  color: #000000;
+  padding: 1rem 0;
+}
+
+footer nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+footer nav ul li {
+  margin-right: 9rem;
+}
+
+footer nav ul li a {
+  color: inherit; /* 부모 요소로부터 상속받은 색상을 사용 */
+  text-decoration: none;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffefa5;
+}
+
+.nd-footer-info {
+  margin-top: -10px; /* 필요한 여백 조정 */
+}
