@@ -1,3 +1,4 @@
+/* Default styles */
 .App {
   text-align: center;
 }
@@ -13,19 +14,22 @@ header h1 {
 }
 
 main {
-  display: none; /* main 요소 숨기기 */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 section {
-  width: 20%;
-  padding: 1rem;
+  flex: 1;
+  max-width: 300px; /* Adjust as needed */
+  padding: 0rem;
   margin: 1rem;
   background-color: #ffefa5;
 }
 
 footer nav {
   display: flex;
-  justify-content: center; /* 가운데 정렬로 변경 */
+  justify-content: center;
   background: #ffefa5;
   color: #000000;
   padding: 1rem 0;
@@ -36,24 +40,27 @@ footer nav ul {
   padding: 0;
   margin: 0;
   display: flex;
+  justify-content: center;
 }
 
 footer nav ul li {
-  margin-right: 9rem;
+  margin-right: 1rem;
+}
+
+footer nav ul li:last-child {
+  margin-right: 0;
 }
 
 footer nav ul li a {
-  color: inherit; /* 부모 요소로부터 상속받은 색상을 사용 */
+  color: inherit;
   text-decoration: none;
 }
 
 footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background: #ffefa5;
+  text-align: center;
 }
 
 .nd-footer-info {
-  margin-top: -10px; /* 필요한 여백 조정 */
+  margin-top: 0; /* Adjust as needed */
 }

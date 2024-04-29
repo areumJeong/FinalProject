@@ -1,77 +1,72 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from 'react';
+import './ReviewForm.css'; // Import CSS file for styling
 
-function App() {
+const ReviewForm = () => {
+  const [formData, setFormData] = useState({
+    review: '',
+    product: '',
+    rating: 0,
+    hoveredRating: 0,
+    image: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleRatingClick = (selectedRating) => {
+    setFormData({ ...formData, rating: selectedRating });
+  };
+
+  const handleRatingHover = (selectedRating) => {
+    setFormData({ ...formData, hoveredRating: selectedRating });
+  };
+
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you can submit the review data to your backend or perform any necessary actions
+    console.log(formData);
+  };
+
   return (
-    <div className="App">
-      <header>
-        <h1>FUNniture</h1>
-      </header>
-      <main>
-        <section id="about">
-          <h2>About Us</h2>
-          <p>회사 소개</p>
-        </section>
-        <section id="members">
-          <h2>Members</h2>
-          <p>로그인, <a href="회원가입 페이지 URL" target="_blank">회원가입</a></p>
-        </section>
-        <section id="cs">
-          <h2>CS Center</h2>
-          <p>1577-1577</p>
-        </section>
-        <section id="mypage">
-          <h2>My Page</h2>
-          <p><a href="주문 조회 페이지 URL" target="_blank">주문 조회</a>찜 목록</p>
-        </section>
-        <section id="help">
-          <h2>Help</h2>
-          <p><a href="공지사항 페이지 URL" target="_blank">공지사항</a>, <a href="문의사항 페이지 URL" target="_blank">문의사항</a></p>
-        </section>
-      </main>
-      <footer>
-        <nav>
-          <ul>
-            <li onClick={() => window.location.href = '#about'}>
-              <h2>About Us</h2>
-              <p><a href="회사 소개 페이지 URL" target="_blank">회사 소개</a></p>
-            </li>
-            <li onClick={() => window.location.href = '#members'}>
-              <h2>Members</h2>
-              <p><a href="로그인 페이지 URL" target="_blank">로그인</a><br /><a href="회원가입 페이지 URL" target="_blank">회원가입</a></p>
-            </li>
-            <li onClick={() => window.location.href = '#cs'}>
-              <h2>CS Center</h2>
-              <p>1577-1577</p>
-            </li>
-            <li onClick={() => window.location.href = '#mypage'}>
-              <h2>My Page</h2>
-              <p><a href="주문 조회 페이지 URL" target="_blank">주문 조회</a><br /><a href="찜 목록 페이지 URL" target="_blank">찜 목록</a></p>
-            </li>
-            <li onClick={() => window.location.href = '#help'}>
-              <h2>Help</h2>
-              <p><a href="공지사항 페이지 URL" target="_blank">공지사항</a><br /><a href="문의사항 페이지 URL" target="_blank">문의사항</a></p>
-            </li>
-          </ul>
-        </nav>
-        <div class="nd-footer-info nd-footer-bank"></div>
-          <h2>Bank account</h2>
-          <p>카카오뱅크 3333-33333-3333</p>
-          <p>예금주 - 이강성</p>
-      
-        <div style={{ marginTop:30}}>
+    <div>
+      <h2>리뷰 작성</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="review">리뷰:</label>
+          <textarea id="review" name="review" value={formData.review} onChange={handleChange} />
         </div>
-
-      </footer>
-        <span>상호명 : (주)FUNniture | </span> 
-        <span>대표 : 이강성 | </span>
-        <span>주소 : 수원시 팔달구 매산로 30 | </span>
-        <span>메일 : daniel07@gmail.com | </span>
-        <span>사업자 번호 : 105-55-55555 | </span><br />
-        <span>copyright 2024 www.FUNniture.com All rights reserved. </span>
-
+        <div>
+          <label htmlFor="product">상품:</label>
+          <input type="text" id="product" name="product" value={formData.product} onChange={handleChange} />
+        </div>
+        <div className="rating">
+          <label>평점:</label>
+          {[...Array(5)].map((_, index) => (
+            <span
+              key={index}
+              className={`icon ${index + 1 <= (formData.hoveredRating || formData.rating) ? 'active' : ''}`}
+              onClick={() => handleRatingClick(index + 1)}
+              onMouseEnter={() => handleRatingHover(index + 1)}
+              onMouseLeave={() => handleRatingHover(0)}
+            >
+              ★
+            </span>
+          ))}
+        </div>
+        <div>
+          <label htmlFor="image">이미지:</label>
+          <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
+        </div>
+        <button type="submit">확인</button>
+      </form>
     </div>
   );
-}
+};
 
-export default App;
+export default ReviewForm;
