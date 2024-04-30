@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+function Footer() {
   return (
     <div className="App">
       <header>
@@ -62,4 +62,4 @@ function App() {
   );
 }
 
-export default App;
+export default Footer;
