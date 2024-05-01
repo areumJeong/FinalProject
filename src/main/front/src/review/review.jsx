@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ReviewForm.css'; // Import CSS file for styling
+
 
 const ReviewForm = () => {
   const [review, setReview] = useState('');
@@ -65,6 +65,7 @@ const ReviewForm = () => {
           <input type="file" id="image" accept="image/*" onChange={handleImageChange} />
         </div>
         <button type="submit">확인</button>
+        
       </form>
     </div>
   );

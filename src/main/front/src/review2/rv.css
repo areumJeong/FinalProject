@@ -1,0 +1,48 @@
+.product-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+}
+
+.bar {
+  background-color: gray;
+}
+
+.left-panel {
+  width: 100%; /* Make left panel take full width */
+  max-width: 400px; /* Adjust max-width as needed */
+  text-align: left; /* Align text to left */
+}
+
+.right-panel {
+  width: 100%; /* Make right panel take full width */
+  max-width: 400px; /* Adjust max-width as needed */
+  margin-top: 20px; /* Add margin on top */
+}
+
+.right-content {
+  margin-bottom: 20px;
+}
+
+.right-content:last-child {
+  margin-bottom: 0;
+}
+
+.write-review button {
+  background-color: #007bff; /* Blue color for button */
+  color: #fff; /* White text color */
+  padding: 8px 16px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.write-review button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.option-label {
+  margin-right: 10px; /* Space between bar graph and label */
+}
+
