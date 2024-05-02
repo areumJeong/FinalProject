@@ -1,6 +1,6 @@
 package com.example.ft.dao;
 
-import java.util.List; 
+import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,39 +12,22 @@ import com.example.ft.entity.Board;
 @Mapper
 public interface BoardDao {
 
-	@Select("SELECT b.*, u.name FROM board b"
-			+ " JOIN users u ON b.email=u.email"
-			+ " WHERE b.bid=#{bid}")
-	Board getBoard(int bid);
-	// b.bi
+	@Select("select * from board where bid=3{bid} and isDeleted=0")   
+	Board getBoardByBid(int bid);    // 돌려받는 값 
+	// 테이블이름이 뭐냐?,board에서 조건where bid에서 가져오는데 그리고 삭제된거는 가져오지마
 	
-	@Select("select count(b.bid) from board b"
-			+ " JOIN users u ON b.uid=u.uid"
-			+ " where b.isDeleted=0 and ${field} like #{query}")
-	int getBoardCount(String field, String query);
-	
-	@Select("SELECT b.*, u.uname FROM board b"
-			+ " JOIN users u ON b.uid=u.uid"
-			+ " WHERE b.isDeleted=0 and ${field} like #{query}"
-			+ " ORDER BY b.modTime desc"
-			+ " LIMIT #{count} OFFSET #{offset}")
-	List<Board> getBoardList(String field, String query, int count, int offset);
-	
-	@Insert("insert into board values(default, #{title}, #{content}, #{uid}, "
-			+ " default, default, default, default, default, #{files})")
+	@Select("select * from where isDeleted=0 and type=#{type} order by bdate desc")
+	List<Board> getBoardList(String type);
+
+	@Insert("insert into  Board values (default, #{iid}, #{email}, #{type},"
+			+ " #{typeQna}, #{title}, default, #{content}, #{img}, default")
 	void insertBoard(Board board);
 	
-	@Update("update board set title=#{title}, content=#{content}, modTime=now(), "
-			+ " files=#{files} where bid=#{bid}")
+	@Update("update Board set iid=#{iid}, type=#{type}, typeQna=#{typeQna), title=#{title},"
+			+ " content=#{content}, img=#{img} ")  // 변경할 수 있는것들
 	void updateBoard(Board board);
 	
-	@Update("update board set isDeleted=1 where bid=#{bid}")
+	@Update("update Board set isDeleted=1 where bid=#{bid}")
 	void deleteBoard(int bid);
-	
-	@Update("update board set ${field}=${field}+1 where bid=#{bid}")
-	void increaseCount(String field, int bid);	
-	
-	@Update("update board set likeCount=#{count} where bid=#{bid}")
-	void updateLikeCount(int bid, int count);
-	
+
 }

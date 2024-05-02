@@ -1,33 +1,29 @@
 package com.example.ft.service;
 
-import java.util.List; 
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ft.dao.BoardDao;
 import com.example.ft.entity.Board;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
-public class BoardServiceImpl implements BoardService {
-	@Autowired private BoardDao boardDao;
-
+@RequiredArgsConstructor   // 서비스처럼 사용 가능
+public class BoardServiceImpl implements BoardService{
+	private final BoardDao boardDao;
+	
 	@Override
-	public Board getBoard(int bid) {
-		return boardDao.getBoard(bid);
+	public Board getBoardByBid(int bid) {
+		
+		return boardDao.getBoardByBid(bid);
 	}
 
 	@Override
-	public int getBoardCount(String field, String query) {
-		query = "%" + query + "%";
-		return boardDao.getBoardCount(field, query);
-	}
-
-	@Override
-	public List<Board> getBoardList(int page, String field, String query) {
-		int offset = (page - 1) * COUNT_PER_PAGE;
-		query = "%" + query + "%";
-		return boardDao.getBoardList(field, query, COUNT_PER_PAGE, offset);
+	public List<Board> getBoardList(String type) {
+		
+		return boardDao.getBoardList(type);
 	}
 
 	@Override
@@ -38,24 +34,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void updateBoard(Board board) {
 		boardDao.updateBoard(board);
+		
 	}
 
 	@Override
 	public void deleteBoard(int bid) {
 		boardDao.deleteBoard(bid);
+		
 	}
-
-	@Override
-	public void increaseViewCount(int bid) {
-		String field = "viewCount";
-		boardDao.increaseCount(field, bid);
-	}
-
-	@Override
-	public void increaseReplyCount(int bid) {
-		String field = "replyCount";
-		boardDao.increaseCount(field, bid);
-	}
-
 
 }

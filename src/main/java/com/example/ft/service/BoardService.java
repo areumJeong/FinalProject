@@ -1,27 +1,19 @@
 package com.example.ft.service;
 
-import java.util.List; 
+import java.util.List;
 
 import com.example.ft.entity.Board;
 
+
 public interface BoardService {
-	public static final int COUNT_PER_PAGE = 4;	// 한 페이지당 글 목록의 갯수
-	public static final int PAGE_PER_SCREEN = 10;	// 한 화면에 표시되는 페이지 갯수
 	
-	Board getBoard(int bid);
+	Board getBoardByBid(int bid);   //bid 값으로 원하는 게시물 찾겠다
 	
-	int getBoardCount(String field, String query);
+	List<Board> getBoardList(String type); // 모든 게시물을 리스트로 찾겠다
 	
-	List<Board> getBoardList(int page, String field, String query);
+	void insertBoard(Board board);  // 게시물 작성할 때 사용
 	
-	void insertBoard(Board board);
+	void updateBoard(Board board); // 게시물 수정할 때 사용
 	
-	void updateBoard(Board board);
-	
-	void deleteBoard(int bid);
-	
-	void increaseViewCount(int bid);
-	
-	void increaseReplyCount(int bid);
-	
+	void deleteBoard(int bid);  // 게시물 삭제 (잠시 사용 중지 상태로 변경)
 }
