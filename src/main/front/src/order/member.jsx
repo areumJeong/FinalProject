@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function OrderDetails() {
   const [orderNumber, setOrderNumber] = useState('');
@@ -76,7 +77,7 @@ function OrderDetails() {
           </Grid>
           <Grid item xs={12}>
             <TextField label="받는 분 주소" value={recipientAddress} onChange={(e) => setRecipientAddress(e.target.value)} style={{width:"50%"}} /> <br/>
-            <Button onClick={handleClick} style={{ height: '40px', marginTop: '10px', width:"50%" }} variant='contained' color='secondary'>주소 찾기</Button>
+            <Button onClick={handleClick} style={{ height: '40px', marginTop: '10px', width:"50%" }} variant='contained'>주소 찾기</Button>
           </Grid>
           <Grid item xs={12}>
             <TextField label="상품명" value={productName} onChange={(e) => setProductName(e.target.value)} style={{width:"50%"}} />
@@ -94,7 +95,7 @@ function OrderDetails() {
             <TextField label="배송시 요청사항" value={deliveryRequest} onChange={(e) => setDeliveryRequest(e.target.value)} style={{width:"50%"}} />
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={handleDelete} variant="outlined" startIcon={<DeleteIcon />} style={{width:"50%"}}>삭제</Button>
+            <Button onClick={handleDelete} variant="outlined" startIcon={<DeleteIcon />} style={{width:"50%"}}>주문 취소/삭제</Button>
           </Grid>
         </Grid>
         <Dialog open={showAddressModal} onClose={() => setShowAddressModal(false)}>
