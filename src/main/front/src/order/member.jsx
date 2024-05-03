@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, Box, Grid } from '@mui/material';
 
 function OrderDetails() {
   const [orderNumber, setOrderNumber] = useState('');
@@ -13,8 +14,8 @@ function OrderDetails() {
   const [orderDateTime, setOrderDateTime] = useState('');
   const [trackingNumber, setTrackingNumber] = useState('');
   const [deliveryRequest, setDeliveryRequest] = useState('');
-
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const openPostcodeModal = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
 
@@ -44,76 +45,79 @@ function OrderDetails() {
     openPostcodeModal({ onComplete: handleAddressSelect });
   };
 
+  const handleDelete = () => {
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    // Implement delete logic here
+    setShowDeleteModal(false);
+  };
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div>
+    <Box display="flex" justifyContent="center" alignItems="center">
+      <Box textAlign="center">
         <h1>주문 상세 정보</h1>
-        <table>
-          <tbody>
-            <tr>
-              <td>주문번호</td>
-              <td><input type="text" value={orderNumber} onChange={(e) => setOrderNumber(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>이메일(F.B)</td>
-              <td><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>배송상황</td>
-              <td><input type="text" value={shippingStatus} onChange={(e) => setShippingStatus(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>받는 분 성함</td>
-              <td><input type="text" value={recipientName} onChange={(e) => setRecipientName(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>핸드폰 번호</td>
-              <td><input type="tel" value={recipientPhoneNumber} onChange={(e) => setRecipientPhoneNumber(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>받는 분 주소</td>
-              <td>
-              <input type="text" value={recipientAddress} onChange={(e) => setRecipientAddress(e.target.value)} style={{ marginBottom: '10px' }} />
-              <button onClick={handleClick} style={{ marginLeft: '20px' }}>주소 찾기</button>
-              </td>
-            </tr>
-            <tr>
-              <td>상품명</td>
-              <td><input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>총 금액</td>
-              <td><input type="text" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>주문 날짜(시간)</td>
-              <td><input type="text" value={orderDateTime} onChange={(e) => setOrderDateTime(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>배송 조회(운송장 번호)</td>
-              <td><input type="text" value={trackingNumber} onChange={(e) => setTrackingNumber(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>배송시 요청사항</td>
-              <td><input type="text" value={deliveryRequest} onChange={(e) => setDeliveryRequest(e.target.value)} style={{ marginBottom: '10px' }} /></td>
-            </tr>
-            <tr>
-              <td>주문 삭제/취소</td>
-              <td><button onClick={() => {}}>삭제</button></td>
-            </tr>
-          </tbody>
-        </table>
-        {showAddressModal && (
-          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)' }}>
-              <h2>주소 찾기</h2>
-              {/* 여기에 주소 검색 모달 내용을 추가 */}
-              <button onClick={() => setShowAddressModal(false)} style={{ marginRight: '10px' }}>닫기</button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField label="주문번호" value={orderNumber} onChange={(e) => setOrderNumber(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="이메일(F.B)" type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="배송상황" value={shippingStatus} onChange={(e) => setShippingStatus(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="받는 분 성함" value={recipientName} onChange={(e) => setRecipientName(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="핸드폰 번호" type="tel" value={recipientPhoneNumber} onChange={(e) => setRecipientPhoneNumber(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="받는 분 주소" value={recipientAddress} onChange={(e) => setRecipientAddress(e.target.value)} style={{width:"50%"}} /> <br/>
+            <Button onClick={handleClick} style={{ height: '40px', marginTop: '10px', width:"50%" }} variant='contained' color='secondary'>주소 찾기</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="상품명" value={productName} onChange={(e) => setProductName(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="총 금액" value={totalAmount} onChange={(e) => setTotalAmount(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="주문 날짜(시간)" value={orderDateTime} onChange={(e) => setOrderDateTime(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="배송 조회(운송장 번호)" value={trackingNumber} onChange={(e) => setTrackingNumber(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField label="배송시 요청사항" value={deliveryRequest} onChange={(e) => setDeliveryRequest(e.target.value)} style={{width:"50%"}} />
+          </Grid>
+          <Grid item xs={12}>
+            <Button onClick={handleDelete} variant="outlined" startIcon={<DeleteIcon />} style={{width:"50%"}}>삭제</Button>
+          </Grid>
+        </Grid>
+        <Dialog open={showAddressModal} onClose={() => setShowAddressModal(false)}>
+          <DialogTitle>주소 찾기</DialogTitle>
+          <DialogContent>
+            {/* Address search modal content */}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setShowAddressModal(false)} color="primary">닫기</Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
+          <DialogTitle>주문 삭제</DialogTitle>
+          <DialogContent>
+            <p>정말 삭제하시겠습니까?</p>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={confirmDelete} color="error">삭제</Button>
+            <Button onClick={() => setShowDeleteModal(false)} color="primary">취소</Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+    </Box>
   );
 }
 
